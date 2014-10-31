@@ -1,4 +1,4 @@
-require_relative "player"
+require_relative "../player"
 require "test/unit"
 
 class PlayerTest < Test::Unit::TestCase

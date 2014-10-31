@@ -1,5 +1,7 @@
 require 'test/unit'
+require_relative 'card_generator_zole_test'
 require_relative 'player_test'
 require_relative 'zole_test'
 require_relative 'player_manager_test'
 require_relative 'deck_test'
+require_relative 'card_shuffler_test'

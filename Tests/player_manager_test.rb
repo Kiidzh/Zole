@@ -1,7 +1,7 @@
 require "test/unit"
       
-require_relative "player_manager"
-require_relative "player"
+require_relative "../player_manager"
+require_relative "../player"
 
 class PlayerManagerTest < Test::Unit::TestCase
   

@@ -1,7 +1,7 @@
-require_relative "zole"
-require_relative "card"
-require_relative "player"
-require_relative "player_manager"
+require_relative "../zole"
+require_relative "../card"
+require_relative "../player"
+require_relative "../player_manager"
 
 require "test/unit"
 
