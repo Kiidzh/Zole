@@ -1,7 +1,8 @@
 class PlayerManager
     
-  def initialize(player1Name, player2Name, player3Name)
-    @players = [Player.new(player1Name), Player.new(player2Name), Player.new(player3Name)]
+  def initialize(*playerNames)
+    @players = []
+    playerNames.each { |playerName| @players.push(Player.new(playerName))}
   end  
   
   def get_player(player_name)

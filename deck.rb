@@ -1,11 +1,16 @@
 require_relative "card"
 class Deck
-     
+  include Enumerable
+  
   attr_reader :cards
   
   def initialize(card_generator)
     @cards = card_generator.generate
   end  
+  
+  def each
+    @cards.each { |card| yield card }
+  end
   
   def top_card
     @cards.at(0)
