@@ -1,9 +1,7 @@
 require_relative "card"
 
-class CardGeneratorZole
-  
-  def self.generate
-    
+class CardGeneratorZole  
+  def self.generate    
     suits = [:Spade,:Heart,:Diamond,:Club]
     common_ranks = [:Nine,:Ten,:Jack,:Queen,:King,:Ace]
     

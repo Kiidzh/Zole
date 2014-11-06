@@ -1,8 +1,13 @@
 class CardShuffler
   
-  attr_reader :deck
-   
-  def initialize(deck)
-    @deck = deck  
+  attr_reader :cards
+     
+  def initialize(cards, &block) 
+    @cards = cards
+    @shuffle = block || lambda {|c| c.shuffle!}
+  end
+  
+  def shuffle
+    @shuffle.call(@cards)
   end  
 end

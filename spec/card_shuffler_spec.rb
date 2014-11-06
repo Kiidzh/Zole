@@ -1,19 +1,30 @@
 require_relative '../card_shuffler'
+require_relative '../card'
 
 describe CardShuffler do
-  let(:deck) { double(:Deck) }
+  
+  let(:cards) { [Card.new(:Club,:Ace), Card.new(:Heart,:Queen)] }
   
   context '.new' do
+    
+    let(:card_shuffler) { card_shuffler = CardShuffler.new(cards) { |cards| cards.reverse! } }
+    
     it 'should keep in instance of deck' do
-      card_shuffler = CardShuffler.new(deck)
-      expect(card_shuffler.deck).to_not be_nil
+      expect(card_shuffler.cards).to_not be_nil
     end  
     
+    it 'should not shuffle cards right away' do
+      expect(card_shuffler.cards.first.suit).to eq(:Club)
+    end
     
+    it 'should shuffle cards using the passed in algorithm' do
+      card_shuffler.shuffle
+      expect(card_shuffler.cards.first.suit).to eq(:Heart)
+    end    
     
+    it 'should work even when we do not pass in an code block' do
+      card_shuffler = CardShuffler.new(cards)
+      card_shuffler.shuffle
+    end
   end  
 end
-
-
-#test_card_shuffler_should_have_an_instance_of_an_deck
-#test_new_should_not_shuffle_cards_immidiately
