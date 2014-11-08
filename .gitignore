@@ -3,3 +3,5 @@
 *.pyo
 .tags
 .tags_sorted_by_file
+ZoleProject.sublime-project
+ZoleProject.sublime-workspace

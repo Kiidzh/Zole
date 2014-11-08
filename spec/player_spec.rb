@@ -4,7 +4,7 @@ describe Player do
   let(:player) {Player.new('Player1')}
 
   context '.new' do
-    it 'should be able to set a name' do
+    it'should be able to set a name' do
       expect(player.name).to eq('Player1')
     end
   end

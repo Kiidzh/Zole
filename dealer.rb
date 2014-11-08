@@ -1,28 +1,25 @@
 class Dealer
-  attr_reader :players, :table_cards
+  def self.deal(args)
+    cards_to_deal_out = args[:cards_to_deal_out]
+    players = args[:players]
+    table_cards = args[:table_cards]
 
-  def initialize(args)
-    @cards_to_deal_out = args[:cards_to_deal_out]
-    @players = args[:players]
-    @table_cards = args[:table_cards]
-  end
-
-  def deal
-    @players.each do |player|
-      deal_8_cards_to_player(player)
+    players.each do |player|
+      deal_8_cards_to_player(cards_to_deal_out, player)
     end
-    deal_2_cards_on_table
+    deal_2_cards_on_table(cards_to_deal_out, table_cards)
   end
 
   private
-    def deal_8_cards_to_player(player)
+
+    def self.deal_8_cards_to_player(cards_to_deal_out, player)
       for i in 1..8 do
-        player.add_card(@cards_to_deal_out.pop)
+        player.add_card(cards_to_deal_out.pop)
       end
     end
 
-    def deal_2_cards_on_table
-      @table_cards.push(@cards_to_deal_out.pop)
-      @table_cards.push(@cards_to_deal_out.pop)
+    def self.deal_2_cards_on_table(cards_to_deal_out, table_cards)
+      table_cards.push(cards_to_deal_out.pop)
+      table_cards.push(cards_to_deal_out.pop)
     end
 end
