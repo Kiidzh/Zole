@@ -28,8 +28,8 @@ describe Zole do
     end
   end
 
-  context '.start_match' do
-    before(:each) { zole.start_match }
+  context '.deal_cards' do
+    before(:each) { zole.deal_cards }
 
     it 'should assign a player 8 cards' do
       player_cards = zole.get_players_cards(:player1)
@@ -52,13 +52,23 @@ describe Zole do
       player_cards += zole.get_players_cards(:player2)
       player_cards += zole.get_players_cards(:player3)
       unique_cards = player_cards.uniq { |x| x.rank.to_s + x.suit.to_s}
-
       expect(unique_cards.count).to eq(24)
     end
 
     it 'should deal unique cards on the table' do
       unique_table_cards = zole.table_cards.uniq {|x| x.rank.to_s + x.suit.to_s }
       expect(unique_table_cards.count).to eq(2)
+    end
+  end
+
+  context '.update_role_decision' do
+    it 'should be possible to pass for first player' do
+      zole.update_role_decision(:player1, :pass)
+      expect(zole.get_player(:player1).role).to eq(:pass)
+    end
+
+    it 'should not be possible to make a decision for any other player' do
+      expect {zole.update_role_decision(:player2, :pass)}.to raise_error
     end
   end
 end

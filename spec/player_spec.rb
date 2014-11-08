@@ -1,11 +1,16 @@
 require_relative '../player'
 
 describe Player do
-  let(:player) {Player.new('Player1')}
+  let(:player1) { 'Player1'}
+  let(:player) {Player.new(:player1)}
 
   context '.new' do
-    it'should be able to set a name' do
-      expect(player.name).to eq('Player1')
+    it 'should be able to set a name' do
+      expect(player.name).to eq(:player1)
+    end
+
+    it 'should set players role in game as awaiting turn by default' do
+      expect(player.role).to eq(:awaiting_turn)
     end
   end
 
@@ -26,6 +31,19 @@ describe Player do
   context '.get_cards' do
     it 'should return an empty array if player has no cards' do
       expect(player.cards.count).to eq(0)
+    end
+  end
+
+  context '.set_role' do
+    it 'should be able to change the role of a player' do
+      player.set_role(:solo)
+      expect(player.role).to eq(:solo)
+    end
+  end
+
+  context '.equal' do
+    it 'should be possible to compare players based their name' do
+      expect(player == Player.new(:player1)).to eq(true)
     end
   end
 end

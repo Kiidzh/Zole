@@ -13,7 +13,7 @@ class Dealer
   private
 
     def self.deal_8_cards_to_player(cards_to_deal_out, player)
-      for i in 1..8 do
+      8.times do
         player.add_card(cards_to_deal_out.pop)
       end
     end
