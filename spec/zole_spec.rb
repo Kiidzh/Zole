@@ -61,53 +61,49 @@ describe Zole do
     end
   end
 
-  context '.update_role_decision' do
+  context '.pass_move' do
     it 'should be possible to pass for first player' do
-      zole.update_role_decision(player1, :pass)
+      zole.pass_move(player1)
       expect(zole.get_player(player1).role).to eq(:pass)
     end
 
     it 'should not be possible to make a decision for any other player' do
-      expect {zole.update_role_decision(player2, :pass)}.to raise_error
+      expect {zole.pass_move(player2)}.to raise_error
     end
 
     it 'should be possile to make a decition after the previous player has made it' do
-      zole.update_role_decision(player1, :pass)
-      zole.update_role_decision(player2, :solo)
-      expect(zole.get_player(player2).role).to eq(:solo)
+      zole.pass_move(player1)
+      zole.pass_move(player2)
+      expect(zole.get_player(player2).role).to eq(:pass)
     end
 
-    it 'should be possible to set the role of a player to solo' do
-      zole.update_role_decision(player1, :solo)
+    it 'should not be possible to make a decision after player has already passed' do
+      zole.pass_move(player1)
+      expect {zole.become_solo(player1)}.to raise_error
+    end
+  end
+
+  context '.become_solo' do
+    before(:each) do
+      zole.deal_cards
+      zole.become_solo(player1)
+    end
+
+    it 'should be possible to set the become solo' do
       expect(zole.get_player(player1).role).to eq(:solo)
     end
 
     it 'when one player choses to be solo the other players roles should be set to duo' do
-      zole.update_role_decision(player1, :solo)
       expect(zole.get_player(player2).role).to eq(:duo)
       expect(zole.get_player(player3).role).to eq(:duo)
     end
 
     it 'should not advance the move to the next player when any player choses to be solo' do
-      zole.update_role_decision(player1, :solo)
-      expect {zole.update_role_decision(player2, :pass)}.to raise_error
-    end
-
-    it 'should not be possible to make a decision after player has already passed' do
-      zole.update_role_decision(player1,:pass)
-      expect {zole.update_role_decision(player1, :solo)}.to raise_error
+      expect {zole.pass_move(player2)}.to raise_error
     end
 
     it 'should not be possible to make a decision after a player has decided to be solo' do
-      zole.update_role_decision(player1, :solo)
-      expect {zole.update_role_decision(player1, :pass)}.to raise_error
-    end
-  end
-
-  context '.make_player_solo' do
-    before(:each) do
-      zole.deal_cards
-      zole.update_role_decision(player1,:solo)
+      expect {zole.pass_move(player1)}.to raise_error
     end
 
     it 'should put two additional cards in the solo players hand from the table' do

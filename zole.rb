@@ -23,9 +23,12 @@ class Zole
     @dealer.deal({cards_to_deal_out: @cards, players: @players, table_cards: @table_cards} )
   end
 
-  def update_role_decision(player, role)
-    @turn_manager.validate_is_players_turn(player)
-    update_players_role(player, role)
+  def become_solo(player)
+    update_role_decision(player, :solo)
+  end
+
+  def pass_move(player)
+    update_role_decision(player,:pass)
   end
 
   def get_player(player_name)
@@ -43,14 +46,15 @@ class Zole
 
   private
     def find_player(player_name)
-      players.find{ |x| x.name == player_name }
+      @players.find{ |x| x.name == player_name }
     end
 
     def solo_player
-      players.find { |x| x.is_solo? }
+      @players.find { |x| x.is_solo? }
     end
 
-    def update_players_role(player, role)
+    def update_role_decision(player, role)
+      @turn_manager.validate_is_players_turn(player)
       if role == :pass
         pass_turn_for_player(player)
       elsif role == :solo
@@ -74,10 +78,17 @@ class Zole
     end
 
     def make_player_solo(player)
-      players.each do |p|
-        p.set_role(p.name == player ? :solo : :duo)
-      end
+      set_solo_duo_roles_for_players(player)
+      add_cards_from_table_to_solo_player
+    end
 
+    def set_solo_duo_roles_for_players(solo_player)
+      @players.each do |p|
+        p.set_role(p.name == solo_player ? :solo : :duo)
+      end
+    end
+
+    def add_cards_from_table_to_solo_player
       2.times { solo_player.add_card(table_cards.pop) }
     end
 end
