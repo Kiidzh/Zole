@@ -6,7 +6,7 @@ class TurnManager
     @player_to_make_a_turn = players.first
   end
 
-  def validate_allowed_turn(player)
+  def validate_is_players_turn(player)
     error_message = "Player #{player} is not allowed to make a turn. It is player's #{@player_to_make_a_turn} turn}"
     raise error_message unless @player_to_make_a_turn.to_s == player.to_s
   end
@@ -14,6 +14,10 @@ class TurnManager
   def advance_move_to_next_player
     current_index = @players.index(@player_to_make_a_turn)
     @player_to_make_a_turn = get_next_player(current_index)
+  end
+
+  def set_move_to_first_player
+    @player_to_make_a_turn = @players.first
   end
 
   private

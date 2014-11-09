@@ -15,10 +15,25 @@ class Player
   end
 
   def set_role(role)
+    validate_role_already_set(role)
     @role = role
+  end
+
+  def is_solo?
+    @role == :solo
   end
 
   def ==(other)
     @name == other.name
   end
+
+  private
+    def validate_role_already_set(role)
+      not_allowed_to_change_roles = [:solo, :duo]
+
+      error_message = "It is not possible to set player's #{@name} role to #{role}. Role already set to #{@role}"
+      if not_allowed_to_change_roles.include? @role
+        raise error_message unless @role == :awaiting_turn
+      end
+    end
 end

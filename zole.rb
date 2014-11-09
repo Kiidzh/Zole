@@ -1,6 +1,7 @@
 require_relative 'player'
 require_relative 'dealer'
 require_relative 'turn_manager'
+require_relative 'card_generator_zole'
 
 class Zole
 
@@ -23,8 +24,8 @@ class Zole
   end
 
   def update_role_decision(player, role)
-    @turn_manager.validate_allowed_turn(player)
-    find_player(player).set_role(role)
+    @turn_manager.validate_is_players_turn(player)
+    update_players_role(player, role)
   end
 
   def get_player(player_name)
@@ -45,6 +46,20 @@ class Zole
       players.find{ |x| x.name == player_name }
     end
 
+    def solo_player
+      players.find { |x| x.is_solo? }
+    end
+
+    def update_players_role(player, role)
+      if role == :pass
+        pass_turn_for_player(player)
+      elsif role == :solo
+        make_player_solo(player)
+      else
+        raise "role #{role} not supported. supported roles are #{:pass} and #{:solo}"
+      end
+    end
+
     def initialize_players(player_names)
       players = []
       player_names.each do |player_name|
@@ -52,5 +67,17 @@ class Zole
       end
       players
     end
-end
 
+    def pass_turn_for_player(player)
+      find_player(player).set_role(:pass)
+      @turn_manager.advance_move_to_next_player
+    end
+
+    def make_player_solo(player)
+      players.each do |p|
+        p.set_role(p.name == player ? :solo : :duo)
+      end
+
+      2.times { solo_player.add_card(table_cards.pop) }
+    end
+end

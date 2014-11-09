@@ -46,4 +46,17 @@ describe Player do
       expect(player == Player.new(:player1)).to eq(true)
     end
   end
+
+  context '.is_solo?' do
+    it 'should return true when player has role solo' do
+      player.set_role(:solo)
+      expect(player.is_solo?).to eq(true)
+    end
+
+    it 'should return false when player is not solo' do
+      expect(player.is_solo?).to eq(false)
+      player.set_role(:duo)
+      expect(player.is_solo?).to eql(false)
+    end
+  end
 end
