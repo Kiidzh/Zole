@@ -30,10 +30,7 @@ class Player
   private
     def validate_role_already_set(role)
       not_allowed_to_change_roles = [:solo, :duo]
-
       error_message = "It is not possible to set player's #{@name} role to #{role}. Role already set to #{@role}"
-      if not_allowed_to_change_roles.include? @role
-        raise error_message unless @role == :awaiting_turn
-      end
+      raise error_message if not_allowed_to_change_roles.include? @role
     end
 end

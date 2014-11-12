@@ -8,12 +8,12 @@ class CardGeneratorZole
     cards = []
     suits.each do |suit|
       common_ranks.each do |rank|
-        cards.push(Card.new(suit, rank))
+        cards << Card.new(suit, rank)
       end
     end
 
-    cards.push(Card.new(:Diamond, :Seven))
-    cards.push(Card.new(:Diamond, :Eight))
+    cards << Card.new(:Diamond, :Seven)
+    cards << Card.new(:Diamond, :Eight)
     cards
   end
 end

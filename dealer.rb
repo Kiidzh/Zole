@@ -19,7 +19,7 @@ class Dealer
     end
 
     def self.deal_2_cards_on_table(cards_to_deal_out, table_cards)
-      table_cards.push(cards_to_deal_out.pop)
-      table_cards.push(cards_to_deal_out.pop)
+      table_cards << cards_to_deal_out.pop
+      table_cards << cards_to_deal_out.pop
     end
 end

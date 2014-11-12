@@ -32,11 +32,11 @@ class Zole
   end
 
   def get_player(player_name)
-    find_player(player_name)
+    @players.find{ |x| x.name == player_name }
   end
 
   def get_players_cards(player_name)
-    player = find_player(player_name)
+    player = get_player(player_name)
     player.cards
   end
 
@@ -45,10 +45,6 @@ class Zole
   end
 
   private
-    def find_player(player_name)
-      @players.find{ |x| x.name == player_name }
-    end
-
     def solo_player
       @players.find { |x| x.is_solo? }
     end
@@ -73,7 +69,7 @@ class Zole
     end
 
     def pass_turn_for_player(player)
-      find_player(player).set_role(:pass)
+      get_player(player).set_role(:pass)
       @turn_manager.advance_move_to_next_player
     end
 

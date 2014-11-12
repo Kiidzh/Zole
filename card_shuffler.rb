@@ -4,7 +4,7 @@ class CardShuffler
 
   def initialize(cards, &block)
     @cards = cards
-    @shuffle = block || lambda {|c| c.shuffle!}
+    @shuffle = block || lambda { |c| c.shuffle! }
   end
 
   def shuffle
