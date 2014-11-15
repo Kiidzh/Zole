@@ -20,6 +20,7 @@ class Card
 
   private
     def are_equal(other)
-      @suit == other.suit and @rank == other.rank
+      result = ((@suit == other.suit) and (@rank == other.rank))
+      result
     end
 end

@@ -23,12 +23,18 @@ class Zole
     @dealer.deal({cards_to_deal_out: @cards, players: @players, table_cards: @table_cards} )
   end
 
-  def become_solo(player)
-    update_role_decision(player, :solo)
+  def become_solo(player_name)
+    update_role_decision(player_name, :solo)
   end
 
-  def pass_move(player)
-    update_role_decision(player,:pass)
+  def pass_move(player_name)
+    update_role_decision(player_name,:pass)
+  end
+
+  def put_down_card(player_name, card)
+    player = get_player(player_name)
+    raise "Cannot put down more than two cards" if player.cards.count <= 8
+    player.put_down_card(card)
   end
 
   def get_player(player_name)
@@ -87,4 +93,5 @@ class Zole
     def add_cards_from_table_to_solo_player
       2.times { solo_player.add_card(table_cards.pop) }
     end
+
 end

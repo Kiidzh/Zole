@@ -51,4 +51,12 @@ describe TurnManager do
       expect(turn_manager.player_to_make_a_turn).to eq(player1)
     end
   end
+
+  context '.set_move_to_player' do
+    it 'should be possible to set move to any player' do
+      turn_manager.set_move_to_player(player3)
+      expect(turn_manager.player_to_make_a_turn).to eq(player3)
+    end
+  end
+
 end

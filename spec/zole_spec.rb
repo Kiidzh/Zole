@@ -114,4 +114,27 @@ describe Zole do
       expect(zole.table_cards.count).to eq(0)
     end
   end
+
+  context '.put_down_card' do
+    before(:each) do
+      zole.deal_cards
+      zole.become_solo(player1)
+    end
+
+    it 'should be possible to put down two cards for the solo player' do
+      zole.put_down_card(player1, zole.get_players_cards(player1)[0])
+      zole.put_down_card(player1, zole.get_players_cards(player1)[0])
+      expect(zole.get_players_cards(player1).count).to eq(8)
+    end
+
+    it 'should be possbile to put down a card only for the solo player' do
+      expect { zole.put_down_card(player2) }.to raise_error
+    end
+
+    it 'should be possible to only put down 2 cards' do
+      zole.put_down_card(player1, zole.get_players_cards(player1)[0])
+      zole.put_down_card(player1, zole.get_players_cards(player1)[0])
+      expect { zole.put_down_card(player1, zole.get_players_cards(player1)[0])}.to raise_error
+    end
+  end
 end
