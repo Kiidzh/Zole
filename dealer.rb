@@ -10,16 +10,18 @@ class Dealer
     deal_2_cards_on_table(cards_to_deal_out, table_cards)
   end
 
-  private
+  class << self
+    private
 
-    def self.deal_8_cards_to_player(cards_to_deal_out, player)
+    def deal_8_cards_to_player(cards_to_deal_out, player)
       8.times do
         player.add_card(cards_to_deal_out.pop)
       end
     end
 
-    def self.deal_2_cards_on_table(cards_to_deal_out, table_cards)
+    def deal_2_cards_on_table(cards_to_deal_out, table_cards)
       table_cards << cards_to_deal_out.pop
       table_cards << cards_to_deal_out.pop
     end
+  end
 end

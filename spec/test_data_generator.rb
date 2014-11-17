@@ -5,6 +5,7 @@ class TestDataGenerator
     [Player.new('Player1'), Player.new('Player2'), Player.new('Player3')]
   end
 
+  # rubocop:disable all
   def self.create_players_with_cards
     players = create_players_without_cards
     players.each do |player|
@@ -18,4 +19,5 @@ class TestDataGenerator
       player.add_card(Card.new(:Diamond, :Seven))
     end
   end
+  # rubocop:enable all
 end

@@ -1,5 +1,7 @@
 # A sample Gemfile
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 # gem "rails"
-gem "rspec"
+gem 'rspec', require: false
+gem 'simplecov', require: false, group: :test
+gem 'rubocop', require: false

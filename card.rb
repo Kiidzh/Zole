@@ -19,8 +19,9 @@ class Card
   end
 
   private
-    def are_equal(other)
-      result = ((@suit == other.suit) and (@rank == other.rank))
-      result
-    end
+
+  def are_equal(other)
+    result = ((@suit == other.suit) && (@rank == other.rank))
+    result
+  end
 end

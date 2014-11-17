@@ -1,7 +1,6 @@
-require_relative "card"
+require_relative 'card'
 
 class Player
-
   attr_reader :name, :role
 
   def initialize(playerName)
@@ -14,12 +13,12 @@ class Player
     @cards.push(card)
   end
 
-  def set_role(role)
+  def role=(role)
     validate_role_already_set(role)
     @role = role
   end
 
-  def is_solo?
+  def solo?
     @role == :solo
   end
 
@@ -42,14 +41,17 @@ class Player
   end
 
   private
-    def validate_role_already_set(role)
-      not_allowed_to_change_roles = [:solo, :duo]
-      error_message = "It is not possible to set player's #{@name} role to #{role}. Role already set to #{@role}"
-      raise error_message if not_allowed_to_change_roles.include? @role
-    end
 
-    def validate_player_has_card(card)
-      error_message = "Tried to play card that player does not have: #{card}"
-      raise error_message unless cards.include? card
-    end
+  def validate_role_already_set(role)
+    not_allowed_to_change_roles = [:solo, :duo]
+    error_message =
+      "It is not possible to set player's #{@name} role to #{role}.
+      Role already set to #{@role}"
+    fail error_message if not_allowed_to_change_roles.include? @role
+  end
+
+  def validate_player_has_card(card)
+    error_message = "Tried to play card that player does not have: #{card}"
+    fail error_message unless cards.include? card
+  end
 end
